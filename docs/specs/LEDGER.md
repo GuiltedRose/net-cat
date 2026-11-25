@@ -2,7 +2,7 @@
 
 ## Established requirements
 
-Ledger state supports NC balances, developer account control and earnings, and verifiable repository registry changes. Git contents stay off-chain. Consensus data uses compact and deterministic binary encoding with exact integer monetary arithmetic.
+Ledger state supports NC balances, developer account control and earnings, and verifiable repository registry changes. Git contents stay off-chain. Consensus data uses compact and deterministic binary encoding with exact integer monetary arithmetic. NC balances use the approved [monetary representation](MONETARY_PROTOCOL.md). WC is account-bound in consensus state and has no transfer operation. Its issuance and redemption must enforce [WC invariants](WETCAT.md).
 
 ## Proposed mechanisms
 

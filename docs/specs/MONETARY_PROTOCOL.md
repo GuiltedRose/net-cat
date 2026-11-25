@@ -1,17 +1,29 @@
 # Monetary protocol
 
-## Established requirements
+## Approved NC representation and supply
 
-NC is native and transferable without a developer account. The proposed cap is 100 trillion NC outstanding. Genesis mints a few million NC, with the amount and allocation open. Outstanding supply must stay within the cap even if cumulative minting exceeds it after valid burns reopen headroom. All network fees are burned. Rewards use deterministic minting with no dedicated prefunded pool, insider allocations, privileged wallets or developer tax.
+| Parameter | Value |
+| --- | --- |
+| Maximum outstanding supply | 100 trillion NC |
+| Decimal precision | 5 |
+| Smallest unit | 0.00001 NC |
+| Atomic units per NC | 100,000 |
+| Maximum outstanding atomic units | 10,000,000,000,000,000,000 |
+| Individual NC balance | `u64` |
+| Intermediate arithmetic | Checked `u128` where required |
 
-Staking entry irreversibly burns a dynamic percentage of eligible holdings. The calculation depends on individual holdings and network monetary conditions. Design must preserve earning opportunities despite wealth concentration and consider holdings split across identities.
+Five is the greatest decimal precision at which the full cap fits in an eight-byte balance. One more decimal place would exceed `u64`. Consensus-critical monetary operations use integers. Cumulative lifetime issuance must be representable beyond `u64`. Its representation and overflow semantics remain open.
 
-## Proposed mechanisms
+NC is native and transferable without a developer account. Genesis should mint a few million NC. The precise amount and allocation remain open and the mainnet distribution must be public and independently verifiable. A valid burn reopens issuance headroom, allowing cumulative issuance to exceed the outstanding cap. All native fees burn. Rewards use deterministic minting, with no dedicated prefunded pool, hidden allocations, automatic founder rewards, privileged wallets, administrative minting or developer tax.
 
-Track outstanding NC as total valid minting minus total valid burns, regardless of custody, transfers, locks or lost keys. For each ordered transition, enforce `0 <= outstanding <= cap`. Apply burns and mints atomically when a transition requires both. Define exact atomic-unit arithmetic for every state transition and an explicit order for competing claims. A potential headroom reservation for guaranteed, unminted claims would additionally enforce `outstanding + reserved <= cap`. Already-minted NC held for payout counts in outstanding supply and must not also count as unminted reserved headroom.
+## Approved staking requirements
 
-An optional account-bound secondary asset could be earned through eligible participation, may accumulate redeemable value and would have a variable NC conversion ratio. A liquid staking asset's changing exchange rate against SOL is an analogy for valuation only. The secondary asset would have no independent exchange listing. Redemption would atomically destroy the redeemed units and deliver NC. Any NC minted must fit under the cap, and guaranteed liabilities need explicit backing or headroom treatment at issuance and revaluation.
+Holders may voluntarily stake raw NC independently of earning WC. Entry irreversibly burns a dynamic proportion of eligible holdings based on those holdings and network monetary conditions. The mechanism must discourage wealth from monopolizing future issuance and apply the same rules to founders, developers and investors. Issuance policy must allow staking and WC automatic accrual to coexist without either consuming all available capacity.
+
+## Proposed accounting
+
+Track outstanding NC as valid mints minus burns. Locks and changes in custody leave outstanding unchanged. Enforce `0 <= outstanding <= cap` at each committed transition. Evaluate reservations for guaranteed unminted liabilities with `outstanding + reserved <= cap`. Already-minted funds count in outstanding and must not also count as unminted reserves. Existing restrictions on prefunded reward pools apply to any backing proposal. Specify settlement ordering and failure semantics across reward issuance and [WC redemption](WETCAT.md).
 
 ## Open decisions
 
-Cap ratification, genesis, precision, growth and regenerative issuance, fee and burn math, holdings measurement, staking rewards, secondary asset adoption, name, issuance, valuation and redemption. See [reward accounting](REWARDS.md) and [consensus](CONSENSUS.md).
+Exact genesis, lifetime issuance representation, growth and regenerative issuance, burn inputs and formula, reward allocation and denomination, collateral, validator relationship, staking duration and withdrawal conditions, and how capacity is shared and rationed. See [fees](FEES.md), [rewards](REWARDS.md) and [consensus](CONSENSUS.md).

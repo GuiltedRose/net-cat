@@ -2,15 +2,17 @@
 
 ## Established requirements
 
-Founders, developers and investors receive no automatic network governance privileges. Fully open-source infrastructure is the objective. GitHub is temporary development infrastructure and the project eventually intends to host its source via LegacyBound. Software rights must remain independent of NC ownership, financial participation, network membership or a hosting provider.
+Founders, developers and investors receive no automatic network governance privileges. Fully open-source infrastructure is the objective. LegacyBound is the intended canonical source host. GitHub will remain an independent public mirror for accessibility, transparency and redundancy. Migration must preserve complete Git history. Software rights must remain independent of NC ownership, financial participation, network membership or a hosting provider.
 
 LegacyBound should demonstrate practical utility before public cryptocurrency promotion. The purpose of cryptocurrency funding is NC liquidity and market adoption. Founder pay and software development financing are outside that objective. Public communication must avoid promises of returns, appreciation or staking yields.
 
-BSD-3-Clause is the active license. The intended NCOSL transition depends on legal review, explicit adoption and documented rights-holder authorization. See the [contribution and licensing policy](../../README.md#licensing).
+No unilateral founder upgrades, universal recovery key, arbitrary balance seizure, hidden allocation, administrator minting or administrative bypass of monetary invariants is permitted. Founders and developers may use ordinary NC wallets. Mainnet genesis must be publicly disclosed and independently verifiable. Development and integration testing must work without privileged monetary authority.
+
+BSD-3-Clause is the active license. The intended NCOSL transition depends on legal review, explicit adoption and documented rights-holder authorization. NCOSL should evolve in response to concrete development issues while preserving BSD-style freedoms. It is the intended ecosystem default, and hosted projects choose their own licenses. See the [contribution and licensing policy](../../README.md#licensing).
 
 ## Proposed mechanisms
 
-Evaluate a public change process with versioned proposals, disclosed decision criteria, interoperability review, and coordinated activation and recovery procedures. Assess how participants verify or reject upgrades without trusting a standing privileged party.
+Investigate reproducible builds, signed releases and independent audits. Evaluate a public change process with versioned proposals, disclosed decision criteria, interoperability review, and coordinated activation and recovery procedures. Assess how participants verify or reject upgrades without trusting a standing privileged party.
 
 ## Open decisions
 

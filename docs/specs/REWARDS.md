@@ -2,7 +2,9 @@
 
 ## Established requirements
 
-Rewards are deterministic protocol-controlled minting, with no dedicated prefunded reward pool. Developers participate under the same rules as everyone else. Developer accounts without an eligible linked wallet do not accrue monetary participation rewards. Pending earnings remain under account-level control until scheduled payout or redemption. Native NC transfers and ordinary network participation are available without LegacyBound.
+Reward issuance is deterministic and protocol-controlled, with no dedicated prefunded reward pool. Eligible LegacyBound participation earns account-bound [WC](WETCAT.md). Native NC staking is voluntary and independent of earning WC. Developers participate under the same rules as everyone else. Developer accounts without an eligible linked wallet do not accrue monetary participation rewards. Pending earnings remain under account-level control until scheduled payout or redemption. Native NC transfers and ordinary network participation are available without LegacyBound.
+
+LegacyBound is available without an eligible linked wallet. Rewards must reflect meaningful contributions. Raw commit counts and high activity volume from AI-assisted development must not automatically produce disproportionate rewards. Batch contribution evidence and settlement where practical to reduce ledger writes and resource use.
 
 ## Proposed mechanisms
 

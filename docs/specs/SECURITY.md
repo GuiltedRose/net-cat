@@ -18,3 +18,13 @@ Use established cryptographic algorithms. Keep wallet and recovery secrets local
 ## Open decisions
 
 Threat assumptions, primitives and key lifecycle, assurance criteria, incident handling and release recovery authority. See [open questions](../OPEN_QUESTIONS.md).
+
+## Attack scenarios
+
+| Actor | Scenario and required design response |
+| --- | --- |
+| Malicious founder | Conceals a genesis allocation, introduces administrative minting, a developer tax, seizure or invariant bypass, or attempts unilateral activation. Require public genesis verification and protocol-enforced founder neutrality. |
+| Compromised infrastructure | Serves a substituted release, fraudulent node state or stale repository authorization. Investigate reproducible builds, signed releases and independent audits. Verify state and access evidence independently. |
+| Fraudulent contributor | Submits duplicate or fabricated evidence or uses high-volume AI-assisted activity to inflate rewards. Evaluate evidence provenance, deduplication, disputes and valuation of meaningful work. |
+| Wealthy validator | Splits stake among identities, captures issuance or manipulates admission under congestion. Evaluate validator and issuance concentration jointly with scheduling rules that prohibit congestion pricing. |
+| Compromised wallet | Tries to redirect a payout, bypass the WC account cap by reassociation or seize repository control. Require account-scoped authorization and independent recovery. |

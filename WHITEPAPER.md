@@ -1,26 +1,32 @@
 # NullCat technical whitepaper
 
-**Draft v0.2.0**
+**Draft v0.3.0**
 
 ## Purpose and scope
 
 NullCat (NC) is an independent cryptocurrency and blockchain planned from scratch in Rust. NC is the chain's native currency. NullCat aims to support a decentralized economy in which open-source developers can receive compensation while retaining their software freedoms. LegacyBound.dev will use the chain for repository ownership, authorization and rewards. NullCat Wallet will provide non-custodial access. Blockchain, forge and wallet development belong in separate repositories.
 
-The requirements below constrain the design. Proposed mechanisms require approval, and the [open-questions register](docs/OPEN_QUESTIONS.md) tracks unresolved choices. This draft defines no production parameters beyond the stated design targets.
+The requirements below constrain the design. Proposed mechanisms require approval, and the [open-questions register](docs/OPEN_QUESTIONS.md) tracks unresolved choices. Approved requirements, design targets and proposals have distinct status. A target guides design and a proposal requires ratification.
 
 ## Monetary accounting
 
-The proposed maximum outstanding supply is **100 trillion NC**. Genesis will mint a few million NC, with exact quantity and allocation undecided. All network fees are burned. A valid burn reduces outstanding supply and creates room for subsequent issuance. Cumulative lifetime issuance can therefore exceed the cap while outstanding supply remains bounded at every committed transition. NC can be held, transferred, bought and sold through supporting exchanges independently of LegacyBound. Network participation requires no developer account.
+The approved cap is **100 trillion NC outstanding**. With five decimal places, one NC contains 100,000 atomic units and the smallest unit is 0.00001 NC. The cap is 10,000,000,000,000,000,000 atomic units. Five is the highest precision that lets the full cap fit in an eight-byte `u64` balance. Consensus-critical monetary operations use exact integers with checked `u128` intermediates where needed. Cumulative lifetime issuance must be representable beyond `u64`. Genesis should mint a few million NC, with the exact amount and allocation open. The mainnet distribution must be publicly disclosed and independently verifiable.
 
-Rewards are minted under deterministic protocol rules. The protocol has no prefunded reward pool, developer tax, privileged developer wallets or automatic founder allocations. Developers participate under the same monetary rules as other users. Staking entry irreversibly burns a dynamically determined share of eligible holdings based on individual holdings and network monetary conditions. The design must preserve earning access despite wealth concentration. It must consider whether splitting holdings across identities defeats the burn policy and whether entry burns and consensus collateral serve distinct roles.
+Burns free headroom for future minting, so cumulative issuance can exceed the cap while outstanding supply remains bounded. NC can be held, transferred and traded independently of LegacyBound. Rewards follow deterministic protocol minting rules, with no dedicated prefunded pool, administrative mint, developer taxes, privileged wallets, hidden allocations or automatic founder rewards.
 
-A proposed accounting model specifies all value changes in integer atomic units and reconciles outstanding supply against cumulative valid issuance and burns. Balance locks and transfers leave outstanding supply unchanged. The protocol needs explicit ordering and failure rules when competing mints seek the same headroom. Atomic precision, issuance formulas, staking calculations and genesis allocation remain open. See the [monetary specification](docs/specs/MONETARY_PROTOCOL.md).
+### Voluntary NC staking
 
-### Optional secondary asset
+Holders can stake raw NC independently of earning WC. Entry irreversibly burns a dynamic proportion of eligible holdings based on those holdings and network monetary conditions. The mechanism must discourage wealthy participants from monopolizing future issuance, and founders, developers and investors stake under the ordinary rules. Staking and WC accrual must coexist without either exhausting issuance capacity. Burn formula, reward allocation and denomination, collateral, validator relationship, duration and withdrawal conditions remain open. See the [monetary protocol](docs/specs/MONETARY_PROTOCOL.md).
 
-An account-bound asset may be earned through eligible participation. It would have no independent exchange listing. Its variable conversion ratio against NC is conceptually similar to the exchange-rate behavior of some liquid staking assets against SOL. Redeemable value may increase over time. Redemption destroys the redeemed units and delivers NC.
+### WetCat
 
-Redemption liabilities must fit within the monetary cap. A proposed mechanism reserves unminted headroom for guaranteed liabilities and debits the reservation on settlement. Minted balances held for payment already count toward outstanding supply. Any guarantee would need a rule for liability growth, insufficient headroom and competing claims before it could be offered. Adoption, name, issuance, conversion, accrual and redemption terms remain open. Cryptographic CTF challenges are outside the current scope.
+WetCat (WC) is an approved account-bound asset earned through eligible LegacyBound participation. It automatically accrues redeemable NC value under protocol rules. WC has no independently fixed global cap and has a mandatory per-developer-account balance limit that survives changes in linked wallets. Consensus prohibits direct purchase, wallet transfers, exchange deposits and withdrawals, decentralized exchange trading and bridging. There is no general-purpose WC transfer transaction.
+
+Partial and full redemption burn all WC selected and mint the corresponding NC at the applicable rate as one settlement. Guaranteed redemption and yield require sufficient backing or reserved issuance capacity within the NC cap. Investigate a global conversion index to accrue value without rewriting every account. **5 WC to 1 NC** is a proposed initial ratio pending ratification. WC precision, account cap, issuance, yield, conversion math and redemption rounding remain open. See [WetCat](docs/specs/WETCAT.md#open-decisions).
+
+### Native fees
+
+Native transaction fees must stay extremely low. A standard transaction costing below one US cent is a design target. A fixed NC fee cannot guarantee that USD ceiling at all valuations. Congestion affects processing availability and confirmation time without increasing fees or enabling priority bidding. All native fees burn permanently. Fee calculation, spam controls, scheduling and any market-price adjustment remain open. See [native fees](docs/specs/FEES.md).
 
 ## Consensus, ledger and network
 
@@ -34,11 +40,13 @@ LegacyBound will register public and private repositories on-chain. Signed recor
 
 Revocation prevents future authorized synchronization and cannot erase downloaded copies. Privacy-preserving metadata and permission representations remain research topics. Candidate approaches include commitments and proofs bound to the requesting party and the current authorized state. Authorization depends on how suppliers establish state freshness and finality during delays or partitions. Replication incentives, routing, key rotation and privacy leakage through network activity remain open. See the [repository specification](docs/specs/REPOSITORIES.md).
 
+Ordinary collaboration, including repository creation, cloning, pushing commits, issues, pull requests, code review and ordinary access, requires no cryptocurrency payment. LegacyBound will preserve ordinary Git client compatibility. Investigate gitoxide, libgit2 and system Git before selecting an implementation. Migration must preserve full history, commit hashes, branches, tags and signatures. How registry writes are funded while collaboration remains free is open.
+
 ## Developer identity and earnings
 
 Developer accounts exist independently of individual wallet addresses and may have no linked wallets. Linking requires cryptographic proof of wallet ownership. Ordinary removal requires approval from both the account and the associated wallet. Wallets have no unilateral control over developer accounts. An independent recovery mechanism must replace compromised wallets while preserving repository ownership, contribution history and account-controlled funds. Financial keys and developer authorization keys should be isolated where practical.
 
-Accounts without eligible linked wallets do not accrue monetary participation rewards. Pending earnings remain under on-chain account control until scheduled payout or redemption. Wallet replacement does not transfer repository ownership. Proposals include distinct account and wallet authorities and settlement records to prevent duplicate payouts. Contribution eligibility, attribution, valuation, payout cadence and recovery procedures remain open. Deterministic settlement depends on a verifiable rule for recognizing off-chain contribution evidence. See [identity](docs/specs/IDENTITY.md) and [rewards](docs/specs/REWARDS.md).
+Financial participation is optional. Users without eligible linked wallets may collaborate and do not accrue monetary participation rewards. Batch contribution evidence and settlement where practical. Reward meaningful work and avoid disproportionate rewards from raw activity volume, including AI-assisted activity. Pending earnings remain under on-chain account control until scheduled payout or redemption. Wallet replacement does not transfer repository ownership. Proposals include distinct account and wallet authorities and settlement records to prevent duplicate payouts. Contribution eligibility, attribution, valuation, payout cadence and recovery procedures remain open. Deterministic settlement depends on a verifiable rule for recognizing off-chain contribution evidence. See [identity](docs/specs/IDENTITY.md) and [rewards](docs/specs/REWARDS.md).
 
 ## Wallets and signing
 
@@ -48,11 +56,15 @@ Transaction serialization must accommodate embedded hardware limits and clear si
 
 ## Licensing, governance and adoption
 
-Fully open-source infrastructure is a project objective. GitHub is temporary development infrastructure. NullCat intends to host its source code through LegacyBound once the forge can support it. Governance must grant no automatic privileges to founders, developers or investors. Governance participation, protocol upgrades and emergency recovery procedures remain open.
+LegacyBound.dev will become the canonical source host, with GitHub continuing as an independent public mirror for accessibility, transparency and redundancy. Migration preserves complete Git history. Blockchain, forge and wallet remain separate repositories. Forge Bounties is unrelated.
 
-[BSD-3-Clause](LICENSE) is the active license. The project intends to transition to the proposed [NullCat Open Source License](LICENSE.draft.md), a permissive draft derived from BSD-3-Clause, subject to professional legal review, explicit adoption and documented rights-holder authorization. Contributor rights and the handling of existing releases are described in the [README](README.md#licensing). The proposal preserves proprietary derivative rights and keeps software freedoms independent of network use, cryptocurrency ownership, royalties, wallet links and hosting providers. It has no network-copyleft obligation. NCOSL remains pending legal review with no claim of OSI approval.
+Founders and developers may hold ordinary NC wallets. The protocol prohibits privileged wallets, administrative minting, hidden allocations, developer taxes, universal recovery keys, arbitrary seizure, unilateral founder upgrades and administrative bypasses of monetary invariants. Development and integration testing must work without privileged monetary authority. Investigate reproducible builds, signed releases, independent audits and transparent upgrades. See [governance](docs/specs/GOVERNANCE.md) and [attack scenarios](docs/specs/SECURITY.md#attack-scenarios).
 
-Cryptocurrency funding aims to establish liquidity and market adoption. It is separate from paying the founder or financing software development. LegacyBound should demonstrate practical utility before public promotion of NC. The project makes no promise of investment returns, appreciation or staking yields. Exchange integration, initial liquidity and regulatory review remain open. See [governance and adoption](docs/specs/GOVERNANCE.md).
+[BSD-3-Clause](LICENSE) remains active. The [NCOSL draft](LICENSE.draft.md) is the intended ecosystem default and will evolve in response to concrete development issues while preserving BSD-style software freedoms. It remains pending professional legal review, documented rights-holder authorization and explicit approval. Hosted repository owners choose their own licenses. See the [contribution and licensing policy](README.md#licensing).
+
+The initial market strategy uses centralized exchanges to establish external NC trading and liquidity. Coinbase, Kraken, Binance and OKX are prospective targets. No listing or partnership is confirmed. LegacyBound should demonstrate practical utility before public promotion and formal listing applications. Native integration depends on documented node interfaces and independently verifiable balances, deposits, withdrawals and finality. Core blockchain operation must remain independent of exchanges, bridges and external financial services.
+
+Future wallet features may include market-based NC-to-USDC conversion and settlement on Solana or another supported network. A native decentralized exchange is a possible long-term expansion. Cryptocurrency funding aims at liquidity and adoption, separate from founder compensation or software development financing. Public communications must avoid promises of returns, appreciation or staking yields. See [market integration](docs/specs/MARKET_INTEGRATION.md).
 
 ## Dependencies and security review
 
@@ -61,4 +73,6 @@ Cryptocurrency funding aims to establish liquidity and market adoption. It is se
 - Repository revocation depends on verifiable and sufficiently fresh chain state. During a partition a supplier may have to deny a legitimate request to avoid serving a revoked principal. Encrypted contents still leave potential metadata and traffic leakage.
 - Recovery and payout rules must coordinate so a compromised wallet cannot redirect pending earnings. The recovery authority itself needs protection against takeover, loss and conflicting requests.
 - Consumer-node targets depend on realistic sync, archival availability and adversarial load measurements. Contribution recognition needs evidence and dispute rules that do not create a mandatory trusted gatekeeper.
+- Free collaboration needs a way to pay for or otherwise admit registry writes without passing a cryptocurrency charge to users. Low fees without congestion pricing also require spam-resistant scheduling.
+- Exchange integration depends on independently verifiable finality and documented reconciliation behavior.
 - Automated coverage must exercise monetary invariants, unauthorized operations, replay, malformed data and failure boundaries before implementation is accepted. See the [security specification](docs/specs/SECURITY.md).

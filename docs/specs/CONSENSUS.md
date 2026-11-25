@@ -2,7 +2,7 @@
 
 ## Established requirements
 
-Consensus must enforce deterministic ledger and monetary rules without mandatory central authority or standing insider privileges. Validator participation must be designed for consumer hardware and residential networks. Staking entry requires the monetary protocol's irreversible burn.
+Consensus must enforce deterministic ledger and monetary rules without mandatory central authority or standing insider privileges. Validator participation must be designed for consumer hardware and residential networks. Voluntary NC staking requires the monetary protocol's irreversible entry burn. The relationship between staking and validator selection remains open. Consensus enforces [WC restrictions](WETCAT.md) and [native fee rules](FEES.md).
 
 ## Proposed mechanisms
 
