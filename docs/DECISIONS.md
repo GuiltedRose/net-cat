@@ -50,3 +50,15 @@ The superseding entries above apply only to the identified provisions. Approved 
 | D-037 | Select rust-libp2p and modular transport and discovery candidates with prioritized traffic and independent bootstrap paths. | Extends D-004. Limits and stack selections are subject to benchmark and security review. |
 | D-038 | Adopt independent passive staker and active validator governance chambers. | Extends D-008 and D-018. Thresholds and periods are provisional. Upgrade execution and emergency rules remain unresolved. |
 | D-039 | Require integrated simulation and separate engineering benchmarks. | Extends D-024 through D-027. Synthetic scores are economic inputs and confer no production assurance. |
+
+## v0.5.1 decisions
+
+| ID | Provisional simulation decision | Relationship to prior baseline |
+| --- | --- | --- |
+| D-040 | Use fixed start-of-year issuance references, 365 deterministic daily periods and a shared daily envelope. Burned NC does not refill the budget and unused allocations expire. | Refines D-024 and D-030. Replaces open annual reference and period-length choices for simulation. |
+| D-041 | Adopt startup values, trailing 30-day targets, zero-target normalization and the independent monetary pressure constraint. | Refines D-030 and the D-032 burn model. Exact observation cutoff and startup-window policy remain open. |
+| D-042 | Apply global appreciation to all outstanding WC at the pre-award snapshot. Use provisional 12-place index precision and the post-appreciation cap reference. | Resolves D-031 baseline eligibility and cap-reference questions. Exact quantization remains open. |
+| D-043 | Preserve fractional redemptions as account-bound liabilities and settle against one atomic daily transition with invariant checks. | Extends D-030 and D-031. Replaces the effective supply identity that omitted redemption credits. |
+| D-044 | Use participating voting power including abstentions for baseline approval, and total eligible voting power as a stricter comparison. | Refines D-038. Sets simulation arithmetic while preserving production approval review. |
+| D-045 | Preserve consensus baselines and use seeded pseudorandomness for simulation, separate from production randomness. | Extends D-033 and D-039. Production secure sampling and safety analysis remain open. |
+| D-046 | Establish nine primary scenarios, seven duration checkpoints, independent overlays and staged sensitivity evaluation. | Extends D-039 and replaces its unstructured baseline scenario list. The 156-byte header and 153-byte transfer baseline in D-035 are affirmed. |

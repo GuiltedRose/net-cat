@@ -40,3 +40,7 @@ Threat assumptions, primitives and key lifecycle, assurance criteria, incident h
 - Verify penalty evidence deduplication, bond and evidence retention through unbonding, and single-signer continuity during migration.
 - Evaluate MVB count manipulation, admission grace periods, double reward and voting exclusion, coordinated control of both governance chambers and governance deadlock.
 - Exercise WC cap transitions and appreciation ordering, issuance-period accounting, framed message and decompression limits, malicious checkpoints and false archival replica claims. See [open questions](../OPEN_QUESTIONS.md).
+
+## Simulation accounting and congestion checks
+
+Detect repeated or partially applied settlement, incorrect annual resets, upward rounding, liability loss or inflation through split redemptions, and pre-award cutoff manipulation. Exercise vote duplication, shared collateral across chambers, quorum edge cases and zero participation. Under overload, measure bounded admission and queues, rejection, expiry, fairness and recovery while preserving fixed congestion-neutral fees and repository authorization. Report rejected invalid transitions separately from arithmetic failures or invariant violations that succeed. See [simulation invariants](SIMULATION.md#hard-simulation-invariants).

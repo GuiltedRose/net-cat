@@ -10,42 +10,69 @@ WC uses three decimal places, 1,000 atomic units per WC, `u64` balances and `u12
 
 ## Shared issuance and redemption
 
-| Symbol | Meaning |
-| --- | --- |
-| `S` | Outstanding NC, including locked, staked and bonded NC |
-| `W` | Outstanding WC |
-| `R` | NC redemption value per WC |
-| `L` | Outstanding WC redemption liabilities in NC |
-| `T` | Effective monetary supply in NC |
+Outstanding WC liability is `L_WC = W × R`. Total monetary liabilities also include unpaid redemption credits. The [effective supply identity](MONETARY_PROTOCOL.md#effective-monetary-supply) counts WC, credits and minted NC exactly once. Redemption is one-way and has no staking withdrawal delay.
+
+## WC appreciation eligibility
+
+Every outstanding WC unit participates in global appreciation, including balances above the current accumulation cap.
 
 ```text
-L = W × R
-T = S + L
-```
-
-WC awards and appreciation create liabilities charged to the shared issuance budget. Redemption settles an existing liability. It moves an equivalent value from `L` into `S` and must create zero additional effective issuance. Settlement must reconcile any rounding differences and prevent double-counting NC already minted and held for payment and the unminted portion of monetary obligations. Index eligibility, scale conversions, transaction ordering, rounding and liability reconciliation remain unresolved.
-
-## WC appreciation index
-
-```text
-B_WC = 0.15 × E_actual
+B_WC = 0.15 × E_day
 
 R_next = R_current + B_WC / W
 ```
 
-Where W represents eligible outstanding WC before new awards for the reward period.
+Where W is total outstanding WC at the defined pre-award settlement snapshot.
 
-Every eligible WC unit receives the same proportional appreciation.
+If W is zero, leave the index unchanged and the corresponding allocation unissued.
 
-Update the global redemption index rather than individually updating every account.
+Apply appreciation before new WC awards.
 
-If W is zero, the index remains unchanged and the allocation remains unissued.
+Newly awarded WC cannot receive appreciation from a period preceding its existence.
 
-Apply appreciation before issuing new WC for the corresponding reward period.
+The actual increase in redemption liabilities must not exceed the appreciation allocation.
 
-Specify settlement ordering and conservative rounding so newly awarded or immediately redeemed WC cannot capture appreciation improperly.
+Round index increases conservatively.
 
-WC appreciation consumes the shared issuance budget through increased redemption liabilities.
+## Fixed-point representation
+
+Retain:
+
+| Monetary field | Representation |
+|---|---|
+| NC balances | u64, 5 decimal places |
+| WC balances | u64, 3 decimal places |
+| Aggregate accounting | u128 |
+| Internal WC conversion index | Provisional 12 fractional decimal digits |
+
+The conversion index represents NC per WC.
+
+Specify its integer width and intermediate arithmetic requirements before simulator implementation.
+
+Consensus-critical calculations must use deterministic integer arithmetic.
+
+Do not use floating-point arithmetic for authoritative monetary state transitions.
+
+Wide intermediates must be checked. Where u128 is insufficient, explicitly specify a safe wider-arithmetic strategy.
+
+## Redemption remainders
+
+Preserve strictly one-way WC-to-NC redemption.
+
+When redemption produces a fractional NC atomic unit:
+
+- Retain the remainder as an account-bound redemption credit.
+- Combine it with future redemption credits.
+- Mint NC only when the accumulated amount is representable.
+- Include unsettled credits in monetary liability accounting.
+- Do not round redemptions upward.
+- Do not silently destroy outstanding monetary liabilities.
+
+Extend the effective supply accounting identity as necessary to include unsettled redemption credits without double-counting WC or minted NC.
+
+Repeated partial redemptions must not generate additional value through rounding.
+
+Wallet replacement must not reset outstanding redemption credits.
 
 ## Dynamic WC accumulation cap
 
@@ -72,7 +99,7 @@ Genesis-derived values:
 
 The 2.5 million WC quantity is derived, not a permanent hardcoded cap.
 
-Recalculate the cap during daily monetary adjustments.
+Recalculate the cap daily using effective supply after appreciation and before new contribution awards. Round awardable quantities down to WC atomic units.
 
 Enforce the cap against the base account identity.
 
@@ -92,10 +119,10 @@ A future adaptive coefficient can use:
 p_next = 0.95 × p_current + 0.05 × p_target
 ```
 
-The exact target function remains open.
+Adaptive p is a future simulation extension. Its target function remains open.
 
 WC has no consensus or governance voting power. Redemption is strictly one-way from WC to NC. NC cannot be converted back into WC. See [contribution award conversion](REWARDS.md#contribution-valuation).
 
 ## Open decisions
 
-Specify the eligible WC set and its compatibility with a global index and total liability identity, the pre-award snapshot and redemption ordering, award and redemption rounding and dust reconciliation, and the future adaptive cap target. WC redemption has no staking withdrawal delay.
+Define the exact finalized settlement cutoff and ordering for redemptions relative to appreciation, credit and index widths and intermediate arithmetic, and conservative quantization and reconciliation. The 12-place index multiplied by three-place WC quantities can produce NC values with 15 fractional digits before any minting conversion. Credits do not constitute outstanding WC and receive no WC index appreciation. See [daily settlement](MONETARY_PROTOCOL.md#deterministic-daily-settlement).

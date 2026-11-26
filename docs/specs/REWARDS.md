@@ -20,7 +20,7 @@ All monetary rewards draw from this budget, including the NC value of new WC lia
 ### Passive NC staking rewards
 
 ```text
-P_reward = 0.15 × E_actual
+P_reward = 0.15 × E_day
 R_i = P_reward × P_i / P_total
 ```
 
@@ -36,7 +36,7 @@ Verifiable storage is an approved participation mechanism. Operators receive NC 
 
 ```text
 P_i = D_i × A_i × V_i × N_i
-R_i = 0.10 × E_actual × P_i / sum(P_j)
+R_i = 0.10 × E_day × P_i / sum(P_j)
 ```
 
 For storage operator `i`, `D_i` is eligible verifiably stored data and `A_i`, `V_i` and `N_i` are availability, storage verification and network replication need coefficients. The allocation remains unissued if total eligible score is zero. Data eligibility, exact scoring and normalization, proof mechanisms, anti-farming protections and settlement rounding remain open.
@@ -46,7 +46,7 @@ See the [storage specification](STORAGE.md). Contribution evidence verification,
 ## Generic distribution
 
 ```text
-B_j = E_actual × a_j
+B_j = E_day × a_j
 
 R_i,j = B_j × Q_i,j / sum(Q_j)
 ```
@@ -79,7 +79,7 @@ Where:
 Distribute contribution rewards:
 
 ```text
-R_i = 0.30 × E_actual × Q_i / Q_total
+R_i = 0.30 × E_day × Q_i / Q_total
 ```
 
 Convert the resulting NC-equivalent award into WC subject to the account cap:
@@ -96,4 +96,8 @@ Use synthetic contribution scores for initial economic simulation.
 
 The production verification, decentralized evidence and impact assessment mechanisms remain unresolved.
 
-See [validator scoring](CONSENSUS.md#validator-reward-mathematics), [WC appreciation](WETCAT.md#wc-appreciation-index) and [storage](STORAGE.md).
+See [validator scoring](CONSENSUS.md#validator-reward-mathematics), [WC appreciation](WETCAT.md#wc-appreciation-eligibility) and [storage](STORAGE.md).
+
+## Daily settlement
+
+The five category allocations use `E_day` and settle once per finalized accounting period. Unused allocations and rounding slack remain unissued with no rollover. Apply index appreciation first, then use one post-appreciation, pre-contribution-award cap reference for the period. See [settlement and invariants](MONETARY_PROTOCOL.md#deterministic-daily-settlement).

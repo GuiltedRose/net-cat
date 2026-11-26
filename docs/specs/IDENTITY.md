@@ -17,3 +17,5 @@ Account control representation, eligible wallet proof, authority thresholds and 
 ## Authorization key roles
 
 Keep developer authorization separate from wallet, validator, peer identity and repository encryption keys. Wallet replacement preserves account-level WC accrual limits and account-controlled authorization and earnings. See [cryptography](CRYPTOGRAPHY.md).
+
+Account-bound fractional NC redemption credits remain with the base developer account through wallet replacement or reassociation. See [redemption remainders](WETCAT.md#redemption-remainders).

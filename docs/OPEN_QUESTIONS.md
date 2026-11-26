@@ -1,14 +1,15 @@
 # Open questions
 
-[Whitepaper v0.5.0](../WHITEPAPER.md) and [D-029 through D-039](DECISIONS.md#v050-decisions) establish the current baseline. The following gates describe the decisions still needed.
+[Whitepaper v0.5.1](../WHITEPAPER.md) and [D-040 through D-046](DECISIONS.md#v051-decisions) establish the provisional simulation baseline.
 
-## Integrated simulation
+## Simulator implementation prerequisites
 
-- Specify the annual budget reference and period boundaries. Define how daily utilization, safety constraints, burns, reward settlement and unused allocations affect spending without repeated budget creation. Define simulated calendar or height semantics, rounding and reconciliation, including tiny values and zero denominators.
-- Define initial utilization and burn baseline, normalization targets and windows, monetary pressure and stability metrics, and the separate stability constraint. Synthetic scores and hypothetical genesis allocations are permitted with assumptions recorded. Compare feedback behavior and sensitivity and define acceptance criteria before drawing economic conclusions.
-- Define WC eligibility for index appreciation, snapshot and settlement order, rounding, and cap-state reference timing. A global rate increases the liability of every outstanding unit valued at that rate. If eligible units differ from all outstanding units, specify how the global index and `L = W × R` can account for that difference without overspending. Define future adaptive cap target separately.
-- Define the validator population counted for MVB adaptation and distinguish it from the active committee sampling population. Model eligibility feedback, grace periods, count manipulation, correlated seat loss, the possibility of empty committees, and repeated threshold exposure. The binomial estimate is conditional on its fixed-share and independent draw assumptions.
-- Specify economic assumptions for fees, staking time weighting, withdrawal clocks, participation scores, archival availability and governance participation. Test governance quorum under both possible approval denominators, without treating either as adopted. Actual genesis recipients and exchange commitments are unnecessary for simulation.
+- Specify fixed-point integer widths, intermediate capacity, rounding directions, daily and annual reconciliation, and credit quantization. A 12-place NC-per-WC index multiplied by WC with three decimal places can yield 15 fractional NC digits. Preserve those liabilities through repeated partial redemptions.
+- Define exact finalized transaction cutoffs, year rollover and day assignment, annual and daily division remainders, which utilization state carries forward, and whether the day’s utilization is staged at the previous cutoff. Measure pressure over matched finalized periods and define which authorized gross envelope is its denominator. Prevent same-period issuance from feeding its own budget.
+- Specify incomplete 30-day window startup, target averaging, observable account attribution, zero-supply behavior for the burn ratio, and event ordering for redemption, appreciation, award caps and unbonding.
+- Specify synthetic participation and scoring, fee assumptions, attainable staking and bonding, admission and rejection policies, MVB population and grace-period modeling, and participant behavior during congestion, downtime and governance votes. Desired populations and workload are inputs, and eligibility and finalization are outputs.
+- Specify adoption and workload interpolation, post-year-one growth, transaction mix, burst and expiry behavior, deterministic generator, seeds and sampling order. Define efficient aggregation and how to reconcile aggregated events with exact daily and annual accounting.
+- Set quantitative economic acceptance thresholds before claiming validation. Test both governance approval denominators with default participating power, record checkpoint outputs and analytical limitations, and compare results across all nine scenarios. No production allocations or market commitments are needed.
 
 ## Production implementation
 
@@ -18,7 +19,7 @@
 - Define peer diversity and bootstrap trust, message and traffic budgets, payload boundary accounting, and validation under interrupted residential connections. Design archival evidence that can support pruning decisions despite unverifiable future availability or shared ownership.
 - Specify decentralized contribution evidence, impact assessment, attribution and disputes, verifiable storage and anti-farming mechanisms, git migration verification, registry funding, and authorization freshness. Define private metadata and transfer proofs, key distribution, AEAD nonce handling, rotation and revocation.
 - Define identity recovery thresholds and conflict handling, pending earnings and wallet eligibility, role-separated keys, addresses and hardware signing, browser boundaries and chain-specific recovery.
-- Specify proposal admission, major amendment classification, quorum denominator, abstentions, snapshot and collateral locking, exact review and activation timing, upgrade compatibility and executable activation, amendment procedures, and emergency handling without unilateral authority.
+- Specify proposal admission, major amendment classification, production approval denominator, abstention encoding, snapshot and collateral locking, exact review and activation timing, upgrade compatibility and executable activation, amendment procedures, and emergency handling without unilateral authority.
 - Specify exact fees, scheduling, spam resistance, the standard transaction class and USD measurement basis. Design exchange interfaces with verifiable finality and reconciliation while preserving chain independence.
 
 ## Benchmarking and security review

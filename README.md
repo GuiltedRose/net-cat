@@ -4,7 +4,7 @@ NullCat (NC) is a planned independent blockchain and native currency designed fr
 
 [LegacyBound.dev](https://legacybound.dev) is the planned Git forge for verifiable repository ownership, authorization and rewards. NullCat Wallet is the planned non-custodial, multi-chain wallet. Each is a separate project. LegacyBound will become the canonical source host, with GitHub retained as an independent public mirror and complete Git history preserved. Ordinary collaboration requires no cryptocurrency payment. Eligible participants can earn account-bound WetCat (WC), while voluntary NC staking is independent. Forge Bounties (`make-money`) is unrelated.
 
-- [Whitepaper, draft v0.5.0](WHITEPAPER.md)
+- [Whitepaper, draft v0.5.1](WHITEPAPER.md)
 - [Architectural decision log](docs/DECISIONS.md)
 - [Open questions and dependencies](docs/OPEN_QUESTIONS.md)
 - [Contributor rules](AGENTS.md)
@@ -21,7 +21,7 @@ The approved architecture uses a 50 million NC genesis mint, deterministic issua
 | Applications | [Repositories](docs/specs/REPOSITORIES.md), [Identity](docs/specs/IDENTITY.md), [Wallet](docs/specs/WALLET.md) |
 | Cross-cutting | [Security](docs/specs/SECURITY.md), [Cryptography](docs/specs/CRYPTOGRAPHY.md), [Governance](docs/specs/GOVERNANCE.md), [Market integration](docs/specs/MARKET_INTEGRATION.md) |
 
-Whitepaper v0.5.0 is the architectural reference. Mathematical models and tunable coefficients are provisional for simulation. Engineering selections are benchmark candidates. Open questions record implementation choices awaiting approval.
+Whitepaper v0.5.1 is the architectural reference. Mathematical models and tunable coefficients are provisional for simulation. Engineering selections are benchmark candidates. The [simulation matrix](docs/specs/SIMULATION.md#primary-adoption-matrix) defines nine baselines at seven checkpoints. Open questions record implementation choices awaiting approval.
 
 ## Licensing
 

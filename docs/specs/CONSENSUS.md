@@ -157,7 +157,7 @@ Exact Tendermint locking, round changes, proposer selection, timeout behavior an
 ## Validator reward mathematics
 
 ```text
-B_V = 0.30 × E_actual
+B_V = 0.30 × E_day
 
 Q_i = sum(v_i,e × A_i,e)
 
@@ -251,3 +251,26 @@ Simulate:
 ## Open specifications
 
 Specify deterministic timing, validator eligibility grace periods, voting and participation evidence, committee handover proof and state commitments, proposer selection, locking and round changes, randomness and checkpoint trust. The binomial model assumes independent unbiased draws and a fixed adversarial share. It measures threshold exposure for one sampled committee, and repeated seats may concentrate votes in fewer operators and failure domains.
+
+## Consensus simulation
+
+Retain all previously approved baseline consensus mathematics:
+
+- Dynamic Minimum Validator Bond.
+- Voluntary validator activation.
+- Stake-weighted committee sampling.
+- Square-root committee size scaling.
+- Repeated sampled voting seats.
+- Greater-than-two-thirds finalization threshold.
+- Epoch-based rotation.
+- Performance-based validator rewards.
+- Evidence-based slashing.
+- Passive and validator withdrawal delays.
+
+Simulate committee capture, repeated threshold exposure, correlated infrastructure failures, empty committees, wallet splitting and MVB feedback manipulation.
+
+Committee selection simulations may use deterministic seeded pseudorandomness.
+
+Clearly distinguish simulated randomness from the production cryptographically secure randomness protocol.
+
+Do not claim simulated consensus behavior establishes production BFT safety or liveness.

@@ -240,3 +240,5 @@ The founder must be able to replace or upgrade infrastructure without interrupti
 ## Open specifications
 
 Canonical framing, signing context, nonce semantics, tree and snapshot encoding, checkpoint authentication, retention minima, evidence windows, optional index behavior and snapshot limits require detailed specifications. Pruning must preserve replay protection and slashable evidence. See [cryptographic candidates](CRYPTOGRAPHY.md) and [storage](STORAGE.md).
+
+For preliminary capacity estimates, the block header remains 156 bytes and the basic NC transfer record remains 153 bytes before applicable extra framing and protocol context. See the [simulation capacity model](SIMULATION.md#preliminary-capacity-model).

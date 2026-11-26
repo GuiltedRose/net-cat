@@ -8,7 +8,7 @@ Verifiable storage is an approved participation mechanism. Operators receive NC 
 
 ```text
 P_i = D_i × A_i × V_i × N_i
-R_i = 0.10 × E_actual × P_i / sum(P_j)
+R_i = 0.10 × E_day × P_i / sum(P_j)
 ```
 
 For storage operator `i`, `D_i` is eligible verifiably stored data and `A_i`, `V_i` and `N_i` are availability, storage verification and network replication need coefficients. The allocation remains unissued if total eligible score is zero.

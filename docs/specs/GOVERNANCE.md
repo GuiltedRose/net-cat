@@ -57,9 +57,54 @@ Do not introduce a separate governance token.
 
 These parameters remain subject to simulation.
 
-Specify whether approval thresholds use participating or total eligible voting power before implementation.
+## Governance voting arithmetic
 
-Define abstentions, zero-participation conditions and exact quorum arithmetic.
+Preserve the two-chamber governance architecture:
+
+- Monetary chamber: eligible passive NC stakers.
+- Consensus chamber: eligible active validators.
+
+WC has no governance authority.
+
+For each chamber:
+
+```text
+P = total eligible voting power at snapshot
+
+Y = supporting voting power
+
+N = opposing voting power
+
+A = abstaining voting power
+
+participation = (Y + N + A) / P
+
+support = Y / (Y + N + A)
+```
+
+A chamber approves a proposal when:
+
+```text
+participation ≥ 0.50
+
+support > 2 / 3
+```
+
+Both chambers must independently approve.
+
+Abstentions count toward participation but not support.
+
+Zero eligible voting power or zero participation cannot approve a proposal.
+
+Use exact integer comparisons rather than floating-point ratios.
+
+Simulate an alternative stricter approval denominator using total eligible voting power.
+
+Preserve the provisional review, voting and activation periods.
+
+No unit of NC may carry voting power in both chambers simultaneously.
+
+With `J = Y + N + A`, use checked integer comparisons `2 × J ≥ P` and `3 × Y > 2 × J`, with `P > 0`, `J > 0` and `J ≤ P`. Count each eligible unit at most once. For the stricter sensitivity case, retain the turnout requirement and compare `3 × Y > 2 × P`. The production approval denominator remains subject to validation.
 
 ## Governance safeguards
 

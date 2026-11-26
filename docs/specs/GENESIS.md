@@ -19,3 +19,20 @@ The whitepaper does not require finalized recipient addresses or exchange commit
 Simulations may use hypothetical genesis distributions.
 
 Publish the mainnet allocation and genesis state for independent verification. Genesis creates no privileged recipient, validator or upgrade authority. Hypothetical simulation and development allocations do not establish production commitments. See [consensus](CONSENSUS.md) and [simulation](SIMULATION.md).
+
+## Hypothetical genesis distributions
+
+The simulator must support multiple hypothetical distributions of the same 50 million NC genesis mint:
+
+- Broadly distributed holdings.
+- Concentrated holdings.
+- Extreme whale ownership.
+- Low initial staking participation.
+- High initial staking participation.
+- Small initial validator population.
+
+All hypothetical genesis balances must sum to exactly 50 million NC.
+
+No actual production recipients, public sale, exchange commitment or liquidity provider allocation is required.
+
+Hypothetical balances begin with zero WC and zero unsettled redemption credits. See [simulation methodology](SIMULATION.md#simulation-methodology).
