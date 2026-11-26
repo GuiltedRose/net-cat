@@ -6,6 +6,8 @@ Public and private repositories may register on-chain. Signed records make owner
 
 Repository creation, cloning, pushes, issues, pull requests, code reviews and ordinary access require no cryptocurrency payment. Private access still requires authorization. LegacyBound will use an established Git implementation and remain compatible with ordinary Git clients. Migration must preserve full history, commit hashes, branches, tags and signatures. Repository owners choose their own licenses.
 
+Imported Git history earns no retroactive rewards. Repository storage operates independently of consensus, supports configurable budgets, and is pruned separately from the ledger. Inactivity alone must never trigger network-wide deletion of the last available copy. See [storage rewards](STORAGE.md).
+
 ## Proposed mechanisms
 
 Compare gitoxide, libgit2 and system Git for client interoperability, history preservation, signed objects and deployment trade-offs. Evaluate how registry updates can be submitted and funded without requiring users to pay for ordinary collaboration.
@@ -14,4 +16,4 @@ Evaluate commitments or opaque references for private registry metadata and perm
 
 ## Open decisions
 
-Git implementation and migration verification, fee-free creation and registry submission, metadata and access proof formats, authorization freshness and revocation semantics, key distribution and rotation, Git object references, replica enrollment and incentives, and durability when all eligible replicas are offline. See [identity](IDENTITY.md) and [security](SECURITY.md).
+Git implementation and migration verification, fee-free creation and registry submission, metadata and access proof formats, authorization freshness and revocation semantics, key distribution and rotation, Git object references, replica enrollment, eligibility and final-copy detection, and durability when all eligible replicas are offline. See [identity](IDENTITY.md) and [security](SECURITY.md).

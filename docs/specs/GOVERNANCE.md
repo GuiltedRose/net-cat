@@ -14,6 +14,8 @@ BSD-3-Clause is the active license. The intended NCOSL transition depends on leg
 
 Investigate reproducible builds, signed releases and independent audits. Evaluate a public change process with versioned proposals, disclosed decision criteria, interoperability review, and coordinated activation and recovery procedures. Assess how participants verify or reject upgrades without trusting a standing privileged party.
 
+Investigate capture risks from validator concentration, randomness manipulation, malicious snapshots and attempts to override monetary controls. See the [security threat model](SECURITY.md#attack-scenarios). Governance voting thresholds, upgrade authorization and emergency authority remain open.
+
 ## Open decisions
 
 Governance representation and capture resistance, protocol upgrades and emergency handling, exchange integration, initial liquidity, regulatory review and final adoption of the [proposed license](../../LICENSE.draft.md).

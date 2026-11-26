@@ -8,7 +8,7 @@ Use established cryptographic algorithms. Keep wallet and recovery secrets local
 
 | Surface | Required assurance to specify and test before release |
 | --- | --- |
-| Money and rewards | Bound supply, burns, minting and liabilities across cap contention, overflow, replay and partial failures. |
+| Money and rewards | Verify supply accounting, burns, minting and liabilities across shared issuance contention, overflow, replay and partial failures. |
 | Identity and wallets | Exercise compromised wallet replacement, replay across chains or action types, double payout and takeover attempts against recovery. |
 | Private Git | Deny stale, forged or missing authorization and test revocation, key rotation and metadata leakage. |
 | Consensus and sync | Test conflicting histories, snapshots with invalid commitments, withheld evidence, partitions and recovery assumptions. |
@@ -28,3 +28,8 @@ Threat assumptions, primitives and key lifecycle, assurance criteria, incident h
 | Fraudulent contributor | Submits duplicate or fabricated evidence or uses high-volume AI-assisted activity to inflate rewards. Evaluate evidence provenance, deduplication, disputes and valuation of meaningful work. |
 | Wealthy validator | Splits stake among identities, captures issuance or manipulates admission under congestion. Evaluate validator and issuance concentration jointly with scheduling rules that prohibit congestion pricing. |
 | Compromised wallet | Tries to redirect a payout, bypass the WC account cap by reassociation or seize repository control. Require account-scoped authorization and independent recovery. |
+| Monetary manipulation | Distorts utilization inputs or reward-period timing, builds WC liabilities rapidly, or exploits repeated partial redemption rounding. Verify budget conservation, independent monetary safety constraints and liability reconciliation. |
+| Concentrated stake | Splits wallets to reduce progressive burns or concentrates voting power to capture committees. Simulate ownership attribution limits and adversarial voting concentration. |
+| Consensus adversary | Biases selection randomness or presents a long-range PoS history or malicious snapshot. Analyze rotation, checkpoint trust, finalized-state authentication and retained evidence. |
+| Storage or contribution farmer | Manufactures work, duplicate rewards, artificial storage or replication demand. Investigate evidence provenance, independently verified retrieval and real replication needs. |
+| Malformed monetary state | Triggers overflow or truncation in balance changes, aggregation or fixed-point intermediates. Specify safe arithmetic and reject invalid transitions. |

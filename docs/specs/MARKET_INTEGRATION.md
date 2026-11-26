@@ -2,7 +2,7 @@
 
 ## Approved direction
 
-The initial strategy relies on centralized exchanges for external NC trading access and liquidity. Coinbase, Kraken, Binance and OKX are prospective targets. No partnership or listing is confirmed. LegacyBound should demonstrate practical utility before public promotion or formal listing applications. Cryptocurrency funding aims at liquidity and adoption, separate from founder compensation and development financing. Public communications must avoid promises of returns, appreciation or staking yields.
+NC floats freely with no fiat peg, guaranteed fiat redemption value, guaranteed investment returns or mandatory protocol-owned liquidity pool. Listings and liquidity remain independent of blockchain operation. The initial strategy relies on centralized exchanges for external NC trading access and liquidity. Coinbase, Kraken, Binance and OKX are prospective targets. No partnership or listing is confirmed. LegacyBound should demonstrate practical utility before public promotion or formal listing applications. Cryptocurrency funding aims at liquidity and adoption, separate from founder compensation and development financing. Public communications must avoid promises of returns, appreciation or staking yields.
 
 Design for native-chain integration with documented node interfaces and independent verification of balances, deposits, withdrawals and transaction finality. No exchange, bridge or external financial service may be required for core blockchain operation. WC remains account-bound and unavailable for direct trading or exchange deposits and withdrawals.
 

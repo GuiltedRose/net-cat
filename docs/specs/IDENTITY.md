@@ -2,9 +2,9 @@
 
 ## Established requirements
 
-Developer accounts exist independently of wallet addresses. Wallet linking is optional and proves wallet ownership cryptographically. Ordinary removal requires authorization from both the account and the linked wallet. Accounts without eligible linked wallets do not accrue monetary participation rewards. Pending earnings remain under on-chain account control until scheduled payout or redemption.
+Developer accounts exist independently of wallet addresses. Financial participation is optional. Wallet linking is optional and proves wallet ownership cryptographically. Ordinary removal requires authorization from both the account and the linked wallet. Accounts without eligible linked wallets do not accrue monetary participation rewards. Pending earnings remain under on-chain account control until scheduled payout or redemption.
 
-A wallet has no unilateral account authority. Independent recovery must replace a compromised wallet while preserving the developer account, repository ownership, contribution history and account-controlled funds. Financial and developer keys should be isolated where practical. Recovery has no universal key. WC and its per-account cap stay with the developer account across wallet changes. See [WetCat](WETCAT.md).
+A wallet has no unilateral account authority. Independent recovery must replace a compromised wallet while preserving the developer account, repository ownership, contribution history and account-controlled funds. Financial and developer keys should be isolated where practical. Recovery has no universal key. WC is bound to the base developer identity. Replacing, reassociating or stacking wallets cannot reset or multiply the account accumulation limit. Wallet replacement preserves pending account-controlled earnings and repository ownership. See [WetCat](WETCAT.md).
 
 ## Proposed mechanisms
 

@@ -2,16 +2,29 @@
 
 ## Approved requirements
 
-WC is an account-bound monetary asset earned through eligible LegacyBound participation. It automatically accumulates redeemable NC value through protocol-defined mechanisms. There is no independently fixed global WC cap. Consensus enforces a maximum WC balance per developer account across wallet replacement and reassociation.
+WC is automatically awarded for eligible developer contributions and automatically participates in value appreciation. It requires no staking entry burn. Consensus prohibits account and wallet transfers, direct purchase, exchange trading, deposits and withdrawals, decentralized exchange trading and bridging. There is no general-purpose WC transfer transaction. Partial and full redemption permanently destroy all WC selected and convert its redemption value into NC.
 
-Consensus prohibits direct purchases, wallet-to-wallet transfers, exchange deposits and withdrawals, decentralized exchange trading and cross-chain bridging. These restrictions belong in transaction validity rules. Smart contracts, exchange blacklists and wallet restrictions cannot substitute for consensus enforcement. The protocol defines no general-purpose WC transfer transaction.
+The approved initial conversion ratio is **5 WC : 1 NC**. The initial per-account accumulation limit is 1% of the genesis NC supply in NC redemption value. At genesis, `50,000,000 NC × 1% = 500,000 NC`, and `500,000 NC × 5 WC/NC = 2,500,000 WC`. The WC quantity is a derived starting value. The cap adjusts dynamically and applies to the base developer identity across wallet replacement, multiple associated wallets and wallet transfers. Future cap adjustments and how appreciation affects accounts at or above the limit remain open.
 
-Partial and full redemption are permitted. Settlement permanently burns the entire WC quantity selected and mints the corresponding NC at the applicable conversion rate. The burn and mint must succeed together. NC accounting must include WC liabilities, and the protocol cannot create guaranteed redemption or yield obligations without sufficient backing or reserved issuance capacity.
+WC uses three decimal places, 1,000 atomic units per WC, `u64` balances and `u128` aggregate accounting. WC has no fixed global supply cap. Consensus enforces these restrictions directly, including no exchange listings.
 
-## Proposed mechanisms
+## Shared issuance and redemption
 
-Investigate a global conversion index so accrual can change the NC claim per WC unit without rewriting each developer account. Evaluate canonical update ordering, bounded arithmetic, aggregate liability, changes in eligibility, rounding and whether splitting redemptions changes total settlement. The proposed initial ratio is **5 WC to 1 NC**, pending ratification.
+| Symbol | Meaning |
+| --- | --- |
+| `S` | Outstanding NC, including locked and staked NC |
+| `W` | Outstanding WC |
+| `R` | NC redemption value per WC |
+| `L` | Outstanding WC redemption liabilities in NC |
+| `T` | Effective monetary supply in NC |
+
+```text
+L = W × R
+T = S + L
+```
+
+WC awards and appreciation create liabilities charged to the shared issuance budget. Redemption settles an existing liability. It moves an equivalent value from `L` into `S` and must create zero additional effective issuance. Settlement must reconcile any rounding differences and prevent double-counting NC already minted and held for payment and the unminted portion of monetary obligations. The appreciation index, scale conversions, transaction ordering, rounding and liability reconciliation remain unresolved.
 
 ## Open decisions
 
-WC precision, per-account cap and overflow handling, issuance and automatic yield formulas, conversion mathematics, index design, rounding and dust treatment, redemption authorization, minimums and eligibility after wallet changes. Resolve liability backing, updates and capacity sharing with [NC staking](MONETARY_PROTOCOL.md) before making guarantees. See [rewards](REWARDS.md).
+Appreciation index design and formula, the dynamic account cap formula, contribution valuation, and whether or how to apply the accumulation limit when appreciation or a cap adjustment puts an existing account above the limit. Specify redemption authorization, rounding and dust, eligibility after wallet changes, and liability reconciliation. See the [monetary protocol](MONETARY_PROTOCOL.md) and [rewards](REWARDS.md).

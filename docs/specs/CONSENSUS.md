@@ -1,13 +1,13 @@
 # Consensus
 
-## Established requirements
+## Approved architecture
 
-Consensus must enforce deterministic ledger and monetary rules without mandatory central authority or standing insider privileges. Validator participation must be designed for consumer hardware and residential networks. Voluntary NC staking requires the monetary protocol's irreversible entry burn. The relationship between staking and validator selection remains open. Consensus enforces [WC restrictions](WETCAT.md) and [native fee rules](FEES.md).
+NullCat uses permissionless Proof of Stake and rotating validator committees with Tendermint-style Byzantine Fault Tolerant finality. Committee selection is cryptographically randomized and stake-weighted. Finalization requires **greater than two-thirds** of committee voting power. Nodes independently verify transactions and state transitions. Passive staking is separate from active validation. Active validators maintain separate slashable bonded NC, with no founder-controlled or privileged class.
 
-## Proposed mechanisms
+Occasional downtime costs rewards. Prolonged inactivity may remove eligibility, and provable malicious consensus behavior may result in slashing. Validator withdrawals require a suitable unbonding period. The combined design requires its own safety and liveness analysis covering Byzantine fault assumptions, locking, round changes, committee transitions, randomness manipulation, partitions and long-range attacks. Committee sampling and Tendermint-style voting alone do not establish those guarantees.
 
-Evaluate candidate consensus designs against explicit assumptions about network partitions, adversarial participation and recovery. Specify validation, fork choice, finality, equivocation evidence and validator-set changes before choosing an implementation. Model whether entry burns, separately slashable collateral and validator selection can support safety without excluding smaller participants.
+Validators must support pruned operation. The security model must specify assumptions about Byzantine voting power in sampled committees, network timing and partition recovery, and how independently verified finalized state survives committee transitions and long-range attacks. The system requires analysis of selection bias, concentration and randomness manipulation.
 
 ## Open decisions
 
-Consensus family, validator selection, admission and unbonding, collateral and penalties, finality and checkpoint trust, block sizes and intervals, and Sybil and whale resistance. See [monetary protocol](MONETARY_PROTOCOL.md), [ledger](LEDGER.md) and [governance](GOVERNANCE.md).
+Committee size, voting-power assignment, selection and rotation mathematics and periods, collateral amounts, slashing percentages and evidence, unbonding duration, inactivity thresholds, block intervals, cryptographic and randomness primitives, checkpoint trust and genesis bootstrapping remain open. Prioritize ordinary consumer hardware and residential connectivity. See [ledger](LEDGER.md) and [security](SECURITY.md).

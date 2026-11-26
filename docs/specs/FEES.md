@@ -2,7 +2,7 @@
 
 ## Approved requirements
 
-Native transaction fees must be extremely low. Congestion must not raise fees or allow priority bidding. All native network fees are permanently burned. Congestion affects processing availability and confirmation time.
+Native transaction fees must be extremely low. Congestion must not raise fees or allow priority bidding. All native network fees are permanently burned and reduce outstanding NC. See [supply accounting](MONETARY_PROTOCOL.md#effective-monetary-supply). Congestion affects processing availability and confirmation time.
 
 ## Design target
 

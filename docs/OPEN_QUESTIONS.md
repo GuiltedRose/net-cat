@@ -1,21 +1,53 @@
 # Open questions
 
-All choices below require explicit approval. Dependencies identify decisions that must be coordinated. A prototype or draft must not silently become a protocol default.
+[Whitepaper v0.4.0](../WHITEPAPER.md) and [decisions D-021 through D-028](DECISIONS.md) record approved architecture. Outstanding choices require explicit approval. Simulation coefficients are provisional.
 
-| Area | Unresolved decisions and dependencies |
-| --- | --- |
-| Genesis and NC accounting | Exact few-million NC mint and allocation, public verification procedures, lifetime issuance representation beyond `u64` and overflow behavior. The cap and NC precision are approved. |
-| Issuance | Growth and regenerative issuance formulas, claim ordering, cap contention, guaranteed liabilities, settlement failure and capacity allocation between staking and WC. |
-| NC staking | Eligible holdings, measurement window, dynamic entry burn, reward allocation and denomination, collateral, validator relationship, staking duration, withdrawal conditions and Sybil and whale resistance. |
-| WetCat | WC precision, per-account cap, issuance and automatic yield, conversion mathematics, ratification of the proposed 5 WC to 1 NC ratio, global index feasibility, redemption rounding, eligibility, and backing or reservation through index changes. |
-| Fees | Fee calculation, standard transaction class and USD measurement basis, scheduling, spam resistance, possible market-price adjustment and who funds registry writes for free collaboration. |
-| Consensus | Consensus and validator selection, finality, collateral, penalties and resistance to Sybil splitting and concentration. |
-| Rewards | Contribution eligibility, evidence and valuation, meaningful work and AI-assisted activity, disputes, duplicate prevention, batching, payout cycle and wallet eligibility transitions. |
-| Identity | Account and wallet recovery, authority thresholds, challenges and conflict handling, and treatment of existing earnings when no eligible wallet remains. |
-| Ledger | Transaction and block formats, signing domains, block sizes and intervals, commitments, pruning, state synchronization, snapshot trust and light-client verification. |
-| Networking | Resource and bandwidth budgets, discovery, peer diversity, transport and validation on consumer hardware and residential links. |
-| Repositories | Evaluate gitoxide, libgit2 and system Git, verify history migration, define replication incentives, encrypted data routing, private metadata and proof formats, finality and freshness, and key rotation. |
-| Wallet | NC keys and addresses, signing format and hardware limits, Ledger flows, chain-specific verification and recovery, and possible NC-to-USDC settlement. |
-| Governance and security | Upgrade and activation procedures, capture resistance, emergency response, reproducible builds, release signatures and independent audits. |
-| Market | Practical utility criteria, native exchange interfaces and reconciliation, initial liquidity, listing process and regulatory review. |
-| License | Final NCOSL provisions, professional legal review, rights-holder authorization and explicit adoption. BSD-3-Clause remains active and hosted owners choose their own licenses. |
+## 1. Monetary mathematics
+
+- Define annual-to-period budgets, reference supply, ordering, reset and smoothing timing, initial utilization, normalization, manipulation resistance, monetary pressure and stability metrics, the independent stability constraint and handling of zero denominators.
+- Specify arithmetic scales, rounding, overflow strategies and representability at aggregate and individual boundaries. Reconcile actual minting and effective issuance when settling WC liabilities, including already-minted payment value, repeated partial redemption, dust and simultaneous claims.
+- Specify the WC appreciation index and cap adjustment formula, award valuation, and treatment when appreciation or a lower cap takes an existing balance above the limit.
+- Define eligible holdings, observation windows, concentration measurement, burn initialization and rounding, time weighting, passive withdrawal, minimum participation, compounding, payout rules and reward precision.
+- Define exact native fees, standard transaction class and USD measurement, scheduling, spam resistance and any independent market-price adjustment.
+
+## 2. Consensus
+
+- Specify committee size, rotation, voting power, selection mathematics, Byzantine assumptions and safety and liveness across locking, round changes, partitions, long-range attacks and committee transitions.
+- Define validator reward scoring, collateral, malicious behavior evidence, slashing amounts, inactivity thresholds, unbonding periods and block timing.
+
+## 3. Cryptographic primitives
+
+- Select and review primitives for transaction signatures and domain separation, committee randomness, proofs, commitments, snapshots and private repository encryption and authorization.
+
+## 4. Ledger and networking
+
+- Specify transaction and block encodings, state commitments, snapshot formats and authentication, secure checkpointing, retention minima, evidence preservation, active state growth, historical availability and light-client verification.
+- Define discovery, transport, routing, resource budgets and sync targets for consumer hardware and residential links.
+
+## 5. Repository and storage verification
+
+- Evaluate Git integrations and full-history migration verification. Define fee-free registry submission, private metadata, authorization freshness, revocation, key distribution and data routing.
+- Specify storage proof and eligibility mechanisms, availability and retrieval scoring, replication targets, anti-farming, duplicate suppression and final-copy detection.
+- Define contribution scoring, evidence, attribution, duplicate prevention, batching, payout cadence and disputes.
+
+## 6. Identity and wallet security
+
+- Specify account authorization, recovery thresholds and conflict handling, wallet eligibility transitions, pending earnings when a wallet is ineligible, and payout routing during recovery.
+- Define keys and addresses, hardware signing payloads, client verification, chain-specific recovery and browser boundaries.
+
+## 7. Governance
+
+- Define representation, voting and upgrade authorization, activation, emergency authority, capture resistance, incident handling, release signing, reproducibility and independent audits.
+
+## 8. Genesis
+
+- Specify distribution of the approved 50 million NC mint, independent public verification and initial validator bootstrapping.
+
+## 9. Economic simulation
+
+- Specify reproducible scenario inputs, calibration and acceptance criteria for concentration, issuance sustainability, redemptions, storage, feedback stability and arithmetic safety. See [simulation requirements](specs/SIMULATION.md).
+
+## 10. Market integration and legal review
+
+- Define utility criteria, exchange interfaces and reconciliation, initial liquidity, listing process, optional wallet conversion and regulatory review.
+- Obtain professional review and rights-holder authorization before explicit NCOSL adoption. BSD-3-Clause remains active and hosted repository owners choose their own licenses.
