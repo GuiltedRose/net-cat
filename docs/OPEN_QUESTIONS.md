@@ -33,3 +33,7 @@
 - Choose actual recipients and allocations for the approved genesis mint, publish independently verifiable genesis artifacts, and establish production validator distribution and independent bootstrap infrastructure.
 - Establish initial liquidity arrangements, utility criteria, and any exchange applications or commitments. Obtain regulatory review. Optional wallet conversion and a native DEX remain separate expansions.
 - Obtain professional legal review and documented rights-holder authorization before any explicit NCOSL adoption. BSD-3-Clause remains active and hosted repository owners choose their own licenses.
+
+## Implemented research conventions
+
+The [research simulator guide](SIMULATOR.md) records the experimental choices used to run v0.5.1, including atomic units and wide arithmetic, daily and annual cutoffs, startup observation windows, seeded sampling, synthetic workload, and cohort modeling. These choices support reproducible research without resolving production consensus-time, proofs, identity and governance requirements. Empirical comparison of cohort and explicit-account outcomes, throughput measurement, long-horizon resource profiling and economic acceptance remain open.
