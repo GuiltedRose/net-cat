@@ -33,3 +33,10 @@ Threat assumptions, primitives and key lifecycle, assurance criteria, incident h
 | Consensus adversary | Biases selection randomness or presents a long-range PoS history or malicious snapshot. Analyze rotation, checkpoint trust, finalized-state authentication and retained evidence. |
 | Storage or contribution farmer | Manufactures work, duplicate rewards, artificial storage or replication demand. Investigate evidence provenance, independently verified retrieval and real replication needs. |
 | Malformed monetary state | Triggers overflow or truncation in balance changes, aggregation or fixed-point intermediates. Specify safe arithmetic and reject invalid transitions. |
+
+## v0.5.0 assurance priorities
+
+- Model repeated committee seats, correlated downtime, stake and infrastructure concentration, biased randomness, partition and long-range attack exposure. Verify that a stall cannot authorize an alternate committee.
+- Verify penalty evidence deduplication, bond and evidence retention through unbonding, and single-signer continuity during migration.
+- Evaluate MVB count manipulation, admission grace periods, double reward and voting exclusion, coordinated control of both governance chambers and governance deadlock.
+- Exercise WC cap transitions and appreciation ordering, issuance-period accounting, framed message and decompression limits, malicious checkpoints and false archival replica claims. See [open questions](../OPEN_QUESTIONS.md).

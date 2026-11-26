@@ -2,7 +2,7 @@
 
 ## Monetary architecture and representation
 
-NC is freely transferable and native to NullCat. WetCat (WC) is an account-bound, non-transferable reward asset. Neither has a fixed global supply cap. The approved genesis mint is **50,000,000 NC**. Distribution and validator bootstrapping remain open. Mainnet distribution must be public and independently verifiable. Deterministic issuance and burns govern monetary expansion. The design seeks gradual expansion, periods of deceleration and stabilization, and subsequent expansion. All native transaction fees burn permanently. There is no prefunded reward pool, privileged minting authority or automatic founder allocation.
+NC is freely transferable and native to NullCat. WetCat (WC) is an account-bound, non-transferable reward asset. Neither has a fixed global supply cap. The [genesis state](GENESIS.md) contains exactly **50,000,000 NC** and zero WC. Genesis is the only exceptional initialization mint. Distribution and validator bootstrapping remain open. Mainnet distribution must be public and independently verifiable. Deterministic issuance and burns govern monetary expansion. The design seeks gradual expansion, periods of deceleration and stabilization, and subsequent expansion. All native transaction fees burn permanently. There is no prefunded reward pool, privileged minting authority or automatic founder allocation.
 
 | Parameter | NC | WC |
 | --- | --- | --- |
@@ -18,7 +18,7 @@ Consensus-critical calculations use deterministic fixed-point integer arithmetic
 
 | Symbol | Meaning |
 | --- | --- |
-| `S` | Outstanding NC, including locked and staked NC |
+| `S` | Outstanding NC, including locked, staked and bonded NC |
 | `W` | Outstanding WC |
 | `R` | NC redemption value per WC |
 | `L` | Outstanding WC redemption liabilities in NC |
@@ -29,13 +29,13 @@ L = W × R
 T = S + L
 ```
 
-WC awards and appreciation create liabilities charged to the shared issuance budget. Redemption settles an existing liability. It moves an equivalent value from `L` into `S` and must create zero additional effective issuance. Settlement must reconcile any rounding differences and prevent double-counting NC already minted and held for payment and the unminted portion of monetary obligations. The appreciation index, scale conversions, transaction ordering, rounding and liability reconciliation remain unresolved.
+WC awards and appreciation create liabilities charged to the shared issuance budget. Redemption settles an existing liability. It moves an equivalent value from `L` into `S` and must create zero additional effective issuance. Settlement must reconcile any rounding differences and prevent double-counting NC already minted and held for payment and the unminted portion of monetary obligations. Index eligibility, scale conversions, transaction ordering, rounding and liability reconciliation remain unresolved.
 
 Gross issuance measures newly issued NC rewards plus the NC value of newly created WC liabilities from awards and appreciation. Effective net expansion is gross issuance less permanent NC burns over the same period, after reconciling settlement rounding. The model’s `E_actual` determines the utilized gross budget before any unused allocations. Actual NC minting includes NC rewards and NC created to settle WC redemptions. That settlement offsets the mint with a liability reduction and consumes no new issuance budget. Locks leave outstanding NC unchanged.
 
 ## Provisional simulation models
 
-The equations and coefficients below follow [whitepaper v0.4.0](../../WHITEPAPER.md). Deterministic period rules and arithmetic scales require approval before production.
+The equations and coefficients below follow [whitepaper v0.5.0](../../WHITEPAPER.md). Deterministic period rules and arithmetic scales require approval before production.
 
 ### Annual gross issuance ceiling
 
@@ -57,9 +57,6 @@ E_actual = E_max × U
 0 ≤ U ≤ 1
 U_next = 0.95 × U_current + 0.05 × U_target
 U_target = 0.40 × V + 0.40 × D + 0.20 × M
-
-Q = S × q
-V = min(1, A / Q)
 ```
 
 `U` is issuance utilization, updated daily in the provisional model. The normalized inputs `V` (validator participation), `D` (qualified developer activity) and `M` (monetary stability) each lie in [0, 1]. `A` is eligible actively participating bonded NC and `Q` is target active bonded NC, with provisional `q = 10%`. Monetary stability must also constrain issuance independently of the weighted utilization target, so participation cannot override monetary safety limits. Raw transaction volume, commit counts and account creation cannot independently justify issuance. Daily timing, startup utilization, normalization, manipulation resistance, handling `Q = 0`, the independent safety constraint and deterministic rounding remain open.
@@ -75,7 +72,7 @@ V = min(1, A / Q)
 | Storage rewards | 10% |
 | Total | 100% |
 
-All monetary rewards draw from this budget, including the NC value of new WC liabilities. Active contributions and infrastructure should collectively receive more compensation than passive ownership. Unused allocations remain unissued and do not automatically move to other categories. No category may independently exceed the shared issuance budget. Validator reward scoring remains open.
+All monetary rewards draw from this budget, including the NC value of new WC liabilities. Active contributions and infrastructure should collectively receive more compensation than passive ownership. Unused allocations remain unissued and do not automatically move to other categories. No category may independently exceed the shared issuance budget. Validator scoring follows the [provisional consensus model](CONSENSUS.md#validator-reward-mathematics).
 
 ### Progressive NC staking entry burn
 
@@ -91,7 +88,7 @@ burned_amount = deposit × b_individual
 staked_principal = deposit - burned_amount
 ```
 
-The network baseline is smoothed daily. `H` is the participant's eligible NC holdings, including staked holdings. The provisional concentration coefficient is 0.30. Use a deterministic integer square root with specified fixed-point scaling. Individual rates can exceed 2% and must remain mathematically valid and below 100%. Apply the rate only to new deposits. Partial and full unstaking incur no new entry burn, and later deposits use the rate then applicable.
+The network baseline is smoothed daily. `H` is the participant's eligible NC holdings, including staked holdings. The provisional concentration coefficient is 0.30. Use a deterministic integer square root with specified fixed-point scaling. Individual rates can exceed 2% and must remain mathematically valid and below 100%. Apply the rate to new passive deposits and new validator bonds. Continuously locked passive stake may become validator collateral without a second burn. Partial and full unstaking incur no new entry burn, and later deposits use the rate then applicable.
 
 The definitions of the baseline inputs, initial baseline, observation timing, zero-supply handling and burn rounding remain open. Unrelated wallets cannot necessarily be attributed to one beneficial owner. Simulate wallet splitting and concentration attacks even where accounts can aggregate linked wallets.
 
@@ -102,6 +99,73 @@ P_reward = 0.15 × E_actual
 R_i = P_reward × P_i / P_total
 ```
 
-`P_i` is participant `i`'s time-weighted eligible staked principal and `P_total` is the corresponding total. Time weighting limits reward-period deposit manipulation. With zero eligible participation, the allocation remains unissued. Percentage yield is an outcome of distribution. There is no independent fixed APY or separate issuance mechanism for yield. Settlement, compounding, rounding, minimum participation and withdrawal conditions remain open where unspecified.
+`P_i` is participant `i`'s time-weighted eligible staked principal and `P_total` is the corresponding total. Time weighting limits reward-period deposit manipulation. With zero eligible participation, the allocation remains unissued. Percentage yield is an outcome of distribution. There is no independent fixed APY or separate issuance mechanism for yield. Settlement, compounding, rounding, minimum participation and exact withdrawal timing remain open. The provisional passive withdrawal delay is one day. Passive staking requires no node or minimum validator bond, conveys no consensus voting authority and is outside validator slashing. See [consensus](CONSENSUS.md).
 
 See [fees](FEES.md), [WetCat](WETCAT.md), [rewards](REWARDS.md) and [simulation](SIMULATION.md).
+
+## Generic economic normalization
+
+```text
+N(x, q) = min(1, x / q)
+```
+
+Measurements must be nonnegative, and zero-denominator behavior must be explicitly specified.
+
+Use this general model for:
+
+- Validator participation.
+- Developer activity.
+- Staking saturation.
+- Monetary pressure.
+- Concentration pressure.
+- Other bounded economic measurements.
+
+Provisional validator participation:
+
+```text
+Q = S × q
+
+V = min(1, A / Q)
+```
+
+Where A is eligible actively participating bonded NC.
+
+The provisional target validator bonding ratio q is 10% of outstanding NC.
+
+Generic monetary stability is:
+
+```text
+monetary_stability = 1 - monetary_pressure
+```
+
+Exact observation windows, target measurements and manipulation-resistant evidence remain technical specification requirements.
+
+Do not silently invent missing production defaults.
+
+## Universal economic smoothing
+
+```text
+X_next = X_current + α × (X_target - X_current)
+
+α = 0.05
+```
+
+The provisional adjustment period is one day.
+
+Reuse this mathematical architecture for adaptive economic parameters where appropriate rather than introducing unrelated adjustment algorithms.
+
+## Monetary invariant
+
+Every accounting period must satisfy:
+
+```text
+T_next = T_current + E - B
+
+0 ≤ E ≤ E_budget
+```
+
+Where E includes new NC and newly created WC redemption liabilities, and B represents permanent monetary destruction.
+
+Define rounding and reconciliation rules so the accounting identity remains deterministic.
+
+All native network fees remain permanently burned.

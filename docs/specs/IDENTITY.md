@@ -13,3 +13,7 @@ Evaluate a stable account identifier, separate authorization roles and a recover
 ## Open decisions
 
 Account control representation, eligible wallet proof, authority thresholds and recovery conflicts, recovery of developer authorization keys, handling pending earnings during wallet ineligibility, and synchronization with repository rights and payouts. See [rewards](REWARDS.md).
+
+## Authorization key roles
+
+Keep developer authorization separate from wallet, validator, peer identity and repository encryption keys. Wallet replacement preserves account-level WC accrual limits and account-controlled authorization and earnings. See [cryptography](CRYPTOGRAPHY.md).

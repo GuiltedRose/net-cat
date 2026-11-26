@@ -17,3 +17,7 @@ Evaluate commitments or opaque references for private registry metadata and perm
 ## Open decisions
 
 Git implementation and migration verification, fee-free creation and registry submission, metadata and access proof formats, authorization freshness and revocation semantics, key distribution and rotation, Git object references, replica enrollment, eligibility and final-copy detection, and durability when all eligible replicas are offline. See [identity](IDENTITY.md) and [security](SECURITY.md).
+
+## Engineering baseline
+
+Git packfiles remain native. X25519, ChaCha20-Poly1305 and HKDF-SHA256 are benchmark candidates. Key distribution, nonce handling, rotation and revocation require specification. Transport security does not replace repository encryption or supplier-side authorization using fresh finalized state. See [cryptography](CRYPTOGRAPHY.md).

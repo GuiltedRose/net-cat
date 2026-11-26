@@ -1,53 +1,34 @@
 # Open questions
 
-[Whitepaper v0.4.0](../WHITEPAPER.md) and [decisions D-021 through D-028](DECISIONS.md) record approved architecture. Outstanding choices require explicit approval. Simulation coefficients are provisional.
+[Whitepaper v0.5.0](../WHITEPAPER.md) and [D-029 through D-039](DECISIONS.md#v050-decisions) establish the current baseline. The following gates describe the decisions still needed.
 
-## 1. Monetary mathematics
+## Integrated simulation
 
-- Define annual-to-period budgets, reference supply, ordering, reset and smoothing timing, initial utilization, normalization, manipulation resistance, monetary pressure and stability metrics, the independent stability constraint and handling of zero denominators.
-- Specify arithmetic scales, rounding, overflow strategies and representability at aggregate and individual boundaries. Reconcile actual minting and effective issuance when settling WC liabilities, including already-minted payment value, repeated partial redemption, dust and simultaneous claims.
-- Specify the WC appreciation index and cap adjustment formula, award valuation, and treatment when appreciation or a lower cap takes an existing balance above the limit.
-- Define eligible holdings, observation windows, concentration measurement, burn initialization and rounding, time weighting, passive withdrawal, minimum participation, compounding, payout rules and reward precision.
-- Define exact native fees, standard transaction class and USD measurement, scheduling, spam resistance and any independent market-price adjustment.
+- Specify the annual budget reference and period boundaries. Define how daily utilization, safety constraints, burns, reward settlement and unused allocations affect spending without repeated budget creation. Define simulated calendar or height semantics, rounding and reconciliation, including tiny values and zero denominators.
+- Define initial utilization and burn baseline, normalization targets and windows, monetary pressure and stability metrics, and the separate stability constraint. Synthetic scores and hypothetical genesis allocations are permitted with assumptions recorded. Compare feedback behavior and sensitivity and define acceptance criteria before drawing economic conclusions.
+- Define WC eligibility for index appreciation, snapshot and settlement order, rounding, and cap-state reference timing. A global rate increases the liability of every outstanding unit valued at that rate. If eligible units differ from all outstanding units, specify how the global index and `L = W × R` can account for that difference without overspending. Define future adaptive cap target separately.
+- Define the validator population counted for MVB adaptation and distinguish it from the active committee sampling population. Model eligibility feedback, grace periods, count manipulation, correlated seat loss, the possibility of empty committees, and repeated threshold exposure. The binomial estimate is conditional on its fixed-share and independent draw assumptions.
+- Specify economic assumptions for fees, staking time weighting, withdrawal clocks, participation scores, archival availability and governance participation. Test governance quorum under both possible approval denominators, without treating either as adopted. Actual genesis recipients and exchange commitments are unnecessary for simulation.
 
-## 2. Consensus
+## Production implementation
 
-- Specify committee size, rotation, voting power, selection mathematics, Byzantine assumptions and safety and liveness across locking, round changes, partitions, long-range attacks and committee transitions.
-- Define validator reward scoring, collateral, malicious behavior evidence, slashing amounts, inactivity thresholds, unbonding periods and block timing.
+- Finalize fixed-point scales, integer widths and rounding, annual budget enforcement, redemption neutrality, zero-denominator behavior, and slashing and reward ordering. Specify treatment of locked principal changes, compounding, and eligibility while unbonding.
+- Specify locking, rounds, proposers, timeouts, epoch handover, verified participation and inactive status, penalty identity and evidence ordering, exact severe offenses, and deterministic withdrawal and evidence windows. Analyze safety and liveness under concentration, partitions, long-range attacks and repeated seats. Detail secure randomness generation, seed evolution, ECVRF ciphersuite and unbiased sampling.
+- Specify signing domains, nonce rules, canonical framing and encoding, state tree namespace order and empty roots, checkpoint trust, authenticated snapshot manifests, resource bounds and retention minima. Define the finality certificate format and whether the proposer index refers to a seat or validator. Keep history availability distinct from state reconstruction.
+- Define peer diversity and bootstrap trust, message and traffic budgets, payload boundary accounting, and validation under interrupted residential connections. Design archival evidence that can support pruning decisions despite unverifiable future availability or shared ownership.
+- Specify decentralized contribution evidence, impact assessment, attribution and disputes, verifiable storage and anti-farming mechanisms, git migration verification, registry funding, and authorization freshness. Define private metadata and transfer proofs, key distribution, AEAD nonce handling, rotation and revocation.
+- Define identity recovery thresholds and conflict handling, pending earnings and wallet eligibility, role-separated keys, addresses and hardware signing, browser boundaries and chain-specific recovery.
+- Specify proposal admission, major amendment classification, quorum denominator, abstentions, snapshot and collateral locking, exact review and activation timing, upgrade compatibility and executable activation, amendment procedures, and emergency handling without unilateral authority.
+- Specify exact fees, scheduling, spam resistance, the standard transaction class and USD measurement basis. Design exchange interfaces with verifiable finality and reconciliation while preserving chain independence.
 
-## 3. Cryptographic primitives
+## Benchmarking and security review
 
-- Select and review primitives for transaction signatures and domain separation, committee randomness, proofs, commitments, snapshots and private repository encryption and authorization.
+- Measure hashing, Ed25519 and candidate BLS12-381 storage and verification costs, device compatibility, proof size, Merkle update costs, serialization and Zstandard compression. If aggregation is adopted, specify and analyze aggregation security.
+- Measure network and validator loads at the proposed committee sizes and block limit. Benchmark QUIC and fallback, NAT traversal and relays, sync under constrained CPU, memory, disk and bandwidth, snapshot verification and interruption recovery, ledger growth and migration.
+- Validate simulation baselines for issuance, stake concentration, governance capture, WC liabilities, replica thresholds and resource targets before production adoption. Plan independent audits and reproducible signed releases.
 
-## 4. Ledger and networking
+## Launch preparation
 
-- Specify transaction and block encodings, state commitments, snapshot formats and authentication, secure checkpointing, retention minima, evidence preservation, active state growth, historical availability and light-client verification.
-- Define discovery, transport, routing, resource budgets and sync targets for consumer hardware and residential links.
-
-## 5. Repository and storage verification
-
-- Evaluate Git integrations and full-history migration verification. Define fee-free registry submission, private metadata, authorization freshness, revocation, key distribution and data routing.
-- Specify storage proof and eligibility mechanisms, availability and retrieval scoring, replication targets, anti-farming, duplicate suppression and final-copy detection.
-- Define contribution scoring, evidence, attribution, duplicate prevention, batching, payout cadence and disputes.
-
-## 6. Identity and wallet security
-
-- Specify account authorization, recovery thresholds and conflict handling, wallet eligibility transitions, pending earnings when a wallet is ineligible, and payout routing during recovery.
-- Define keys and addresses, hardware signing payloads, client verification, chain-specific recovery and browser boundaries.
-
-## 7. Governance
-
-- Define representation, voting and upgrade authorization, activation, emergency authority, capture resistance, incident handling, release signing, reproducibility and independent audits.
-
-## 8. Genesis
-
-- Specify distribution of the approved 50 million NC mint, independent public verification and initial validator bootstrapping.
-
-## 9. Economic simulation
-
-- Specify reproducible scenario inputs, calibration and acceptance criteria for concentration, issuance sustainability, redemptions, storage, feedback stability and arithmetic safety. See [simulation requirements](specs/SIMULATION.md).
-
-## 10. Market integration and legal review
-
-- Define utility criteria, exchange interfaces and reconciliation, initial liquidity, listing process, optional wallet conversion and regulatory review.
-- Obtain professional review and rights-holder authorization before explicit NCOSL adoption. BSD-3-Clause remains active and hosted repository owners choose their own licenses.
+- Choose actual recipients and allocations for the approved genesis mint, publish independently verifiable genesis artifacts, and establish production validator distribution and independent bootstrap infrastructure.
+- Establish initial liquidity arrangements, utility criteria, and any exchange applications or commitments. Obtain regulatory review. Optional wallet conversion and a native DEX remain separate expansions.
+- Obtain professional legal review and documented rights-holder authorization before any explicit NCOSL adoption. BSD-3-Clause remains active and hosted repository owners choose their own licenses.

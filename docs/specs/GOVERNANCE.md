@@ -14,8 +14,67 @@ BSD-3-Clause is the active license. The intended NCOSL transition depends on leg
 
 Investigate reproducible builds, signed releases and independent audits. Evaluate a public change process with versioned proposals, disclosed decision criteria, interoperability review, and coordinated activation and recovery procedures. Assess how participants verify or reject upgrades without trusting a standing privileged party.
 
-Investigate capture risks from validator concentration, randomness manipulation, malicious snapshots and attempts to override monetary controls. See the [security threat model](SECURITY.md#attack-scenarios). Governance voting thresholds, upgrade authorization and emergency authority remain open.
+Investigate capture risks from validator concentration, randomness manipulation, malicious snapshots and attempts to override monetary controls. See the [security threat model](SECURITY.md#attack-scenarios). The provisional thresholds below require simulation. Executable upgrade authorization and emergency authority remain open.
 
 ## Open decisions
 
 Governance representation and capture resistance, protocol upgrades and emergency handling, exchange integration, initial liquidity, regulatory review and final adoption of the [proposed license](../../LICENSE.draft.md).
+
+## Two-chamber governance
+
+Adopt hybrid on-chain governance.
+
+### Monetary chamber
+
+Eligible passive NC stakers.
+
+Voting power is proportional to eligible committed NC.
+
+### Consensus chamber
+
+Eligible active validators.
+
+Voting power is proportional to eligible bonded NC.
+
+Include all eligible active validators rather than only the current rotating committee.
+
+Both chambers must independently approve major protocol amendments.
+
+WC has no governance authority.
+
+Do not introduce a separate governance token.
+
+## Provisional governance parameters
+
+| Parameter | Value |
+|---|---|
+| Monetary chamber approval | Greater than two-thirds |
+| Consensus chamber approval | Greater than two-thirds |
+| Minimum participation per chamber | 50% of eligible voting power |
+| Public proposal review | 14 days |
+| Voting period | 7 days |
+| Activation delay | 14 days |
+
+These parameters remain subject to simulation.
+
+Specify whether approval thresholds use participating or total eligible voting power before implementation.
+
+Define abstentions, zero-participation conditions and exact quorum arithmetic.
+
+## Governance safeguards
+
+- Record voting eligibility at a finalized pre-voting snapshot.
+- Lock voting collateral throughout the required governance period.
+- Prevent the same NC from counting in both chambers.
+- Require independent chamber approval.
+- No founder veto.
+- No unilateral administrator upgrades.
+- Publicly auditable proposals and results.
+- Delayed activation at a predetermined block height.
+- Preserve monetary and security invariants.
+
+Progressive staking burns increase the cost of obtaining governance influence but do not eliminate whale capture.
+
+Simulate coordinated control of both chambers and governance deadlock.
+
+Exact proposal admission, upgrade compatibility, executable activation, emergency handling and governance amendment rules remain technical specification requirements.

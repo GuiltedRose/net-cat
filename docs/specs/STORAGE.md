@@ -20,3 +20,7 @@ Support configurable storage budgets. Empty allocated capacity earns nothing. Ve
 ## Open decisions
 
 Storage proofs, eligibility verification, scoring and normalization, replication targets and final-copy detection, anti-farming mathematics, privacy of verification, and reward rounding. See [repositories](REPOSITORIES.md) and [ledger](LEDGER.md).
+
+## Replication-aware ledger pruning
+
+The provisional archival target is five copies. Automatic pruning requires at least three other verified copies. If replication is insufficient, suspend automatic pruning for the affected segments, notify the operator and prioritize eligible under-replicated data in storage rewards. Counts alone cannot guarantee availability or operator independence. See [ledger retention](LEDGER.md#replication-aware-pruning).

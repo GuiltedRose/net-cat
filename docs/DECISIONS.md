@@ -34,3 +34,19 @@ Permanent record of established project constraints. Append subsequent approvals
 | D-028 | Approve contribution eligibility boundaries and preserve a freely floating NC market | Extends D-016 and D-017. Imports do not earn retroactive rewards. Market liquidity and listings remain independent of blockchain operation. |
 
 The superseding entries above apply only to the identified provisions. Approved architecture governs subsequent design. Provisional models establish simulation baselines, their coefficients are tunable, and unresolved technical specifications still require explicit approval. See [whitepaper v0.4.0](../WHITEPAPER.md) and [simulation requirements](specs/SIMULATION.md).
+
+## v0.5.0 decisions
+
+| ID | Status and decision | Relationship to earlier decisions |
+| --- | --- | --- |
+| D-029 | Approved genesis state contains exactly 50 million NC and zero WC. Genesis is the sole exceptional mint. | Clarifies D-021. Recipients, distribution, liquidity and production bootstrap are deferred to launch. |
+| D-030 | Approve provisional normalization, daily smoothing, category distribution and the effective supply invariant. | Extends D-024. Measurement, period accounting and rounding are unresolved. Coefficients are tunable. |
+| D-031 | Approve provisional WC index, dynamic cap, cap-crossing treatment and contribution scoring and conversion. | Completes the baseline mechanisms left open in D-023 and extends D-028. Production evidence, timing and numerical policies remain open. |
+| D-032 | Extend progressive burns to new validator bonds. Permit continuously locked stake to change roles without a second burn. | Refines D-003 and D-024. The post-burn bond minimum and withdrawal delays are provisional. |
+| D-033 | Approve provisional committee, voting, epoch, MVB, validator reward and penalty models. | Refines D-025. Handover, secure randomness, evidence and time semantics need specification. |
+| D-034 | Select cryptographic and compression benchmark candidates with distinct key roles and no custom primitives. | Extends D-004 and D-025. The suite and exact ciphersuites require validation. |
+| D-035 | Approve canonical binary encoding constraints and specialized transaction families. Select preliminary layouts, sparse Merkle commitments and snapshot profiles. | Extends D-004 and D-026. Layouts and engineering parameters are provisional. |
+| D-036 | Adopt replication-aware pruning and migration safety requirements. | Extends D-026 and D-027. Replica thresholds are tunable, and proofs and independence remain unresolved. |
+| D-037 | Select rust-libp2p and modular transport and discovery candidates with prioritized traffic and independent bootstrap paths. | Extends D-004. Limits and stack selections are subject to benchmark and security review. |
+| D-038 | Adopt independent passive staker and active validator governance chambers. | Extends D-008 and D-018. Thresholds and periods are provisional. Upgrade execution and emergency rules remain unresolved. |
+| D-039 | Require integrated simulation and separate engineering benchmarks. | Extends D-024 through D-027. Synthetic scores are economic inputs and confer no production assurance. |

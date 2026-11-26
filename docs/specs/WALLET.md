@@ -15,3 +15,7 @@ Wallet integration must respect consensus restrictions on WC transfers, trading 
 ## Open decisions
 
 Key and address conventions, transaction payloads, browser permission boundaries, client verification, device integration, recovery and chain-specific signing and broadcast behavior. See [ledger](LEDGER.md) and [identity](IDENTITY.md).
+
+## Signing baseline
+
+Ed25519 is the provisional wallet signature candidate. Bind signed bytes to network and operation and verify human-readable amounts without floating-point loss. Validate device compatibility with the canonical binary payload before finalizing the scheme. See [cryptography](CRYPTOGRAPHY.md) and [ledger](LEDGER.md).
